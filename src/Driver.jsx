@@ -122,7 +122,7 @@ const Driver = () => {
             href="#"
             className="flex items-center whitespace-nowrap text-2xl font-black"
           >
-            <img className="w-44" src={navlogo} alt="Logo" />
+            <img className="w-32" src={navlogo} alt="Logo" />
           </a>
           <input type="checkbox" className="peer hidden" id="navbar-open" />
           <label
