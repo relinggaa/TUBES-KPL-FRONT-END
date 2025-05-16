@@ -217,6 +217,9 @@ const Admin = () => {
           >
             <ul className="flex flex-col items-center space-y-2 md:ml-auto md:flex-row md:space-y-0">
               <li className="text-gray-600 md:mr-12 hover:text-blue-600">
+                <a href="/">Home</a>
+              </li>
+              <li className="text-gray-600 md:mr-12 hover:text-blue-600">
                 <button onClick={() => handleTabChange("addKey")}>
                   Buat Key
                 </button>

@@ -5,7 +5,7 @@ import { MdEdit, MdDelete } from "react-icons/md";
 import navlogo from "./assets/img/logo-sagara.png";
 import "react-toastify/dist/ReactToastify.css";
 
-const Driver = () => {
+const Teknisi = () => {
   const [activeTab, setActiveTab] = useState("kerusakan");
   const [kerusakans, setKerusakans] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -155,7 +155,7 @@ const Driver = () => {
               </li>
               <li className="text-gray-600 md:mr-12 hover:text-blue-600">
                 <button onClick={() => handleTabChange("kerusakan")}>
-                  Laporan Kerusakan
+                  Tampilkan Data Kerusakan
                 </button>
               </li>
               <li className="text-gray-600 md:mr-12 hover:text-blue-600">
@@ -179,91 +179,9 @@ const Driver = () => {
 
         {activeTab === "kerusakan" && (
           <div className="w-full max-w-6xl">
-            <div className="bg-white p-5 rounded-lg shadow-md mb-6">
-              <h1 className="text-2xl font-bold mb-4">
-                {selectedKerusakan ? "Edit Kerusakan" : "Tambah Kerusakan"}
-              </h1>
-              <form
-                onSubmit={selectedKerusakan ? updateKerusakan : addKerusakan}
-                className="space-y-4"
-              >
-                <div>
-                  <input
-                    type="text"
-                    placeholder="Plat Nomor"
-                    value={kerusakanForm.platNomor}
-                    onChange={(e) =>
-                      setKerusakanForm({
-                        ...kerusakanForm,
-                        platNomor: e.target.value,
-                      })
-                    }
-                    className="input border border-gray-300 p-3 rounded-md w-full"
-                    required
-                  />
-                  <button
-                    type="button"
-                    onClick={() => searchByPlatNomor(kerusakanForm.platNomor)}
-                    className="bg-blue-600 text-white p-2 rounded-md mt-2"
-                  >
-                    Search
-                  </button>
-                </div>
-
-                <div>
-                  <input
-                    type="text"
-                    placeholder="Merek Kendaraan"
-                    value={kerusakanForm.merek}
-                    onChange={(e) =>
-                      setKerusakanForm({
-                        ...kerusakanForm,
-                        merek: e.target.value,
-                      })
-                    }
-                    className="input border border-gray-300 p-3 rounded-md w-full"
-                    required
-                    disabled
-                  />
-                </div>
-                <div>
-                  <input
-                    type="text"
-                    placeholder="Kendala"
-                    value={kerusakanForm.kendala}
-                    onChange={(e) =>
-                      setKerusakanForm({
-                        ...kerusakanForm,
-                        kendala: e.target.value,
-                      })
-                    }
-                    className="input border border-gray-300 p-3 rounded-md w-full"
-                    required
-                  />
-                </div>
-                <div>
-                  <textarea
-                    placeholder="Catatan"
-                    value={kerusakanForm.catatan}
-                    onChange={(e) =>
-                      setKerusakanForm({
-                        ...kerusakanForm,
-                        catatan: e.target.value,
-                      })
-                    }
-                    className="input border border-gray-300 p-3 rounded-md w-full"
-                    required
-                  />
-                </div>
-                <button
-                  type="submit"
-                  className="w-full bg-blue-600 text-white py-3 rounded-md hover:bg-blue-700 transition-colors"
-                >
-                  {selectedKerusakan ? "Update Laporan" : "Tambah Laporan"}
-                </button>
-              </form>
-            </div>
-
+            <h1 className="text-4xl text-center font-bold">
+              List Data Kerusakan
+            </h1>
             <div className="w-full bg-gray-50 p-4 rounded-lg shadow-md">
               <table className="min-w-full border-collapse border-spacing-y-2 border-spacing-x-2">
                 <thead className="border-b lg:table-header-group">
@@ -280,9 +198,6 @@ const Driver = () => {
                     <td className="py-4 text-sm font-medium text-gray-500">
                       Catatan
                     </td>
-                    <td className="py-4 text-sm font-medium text-gray-500">
-                      Aksi
-                    </td>
                   </tr>
                 </thead>
                 <tbody className="bg-white">
@@ -295,18 +210,11 @@ const Driver = () => {
                       <td className="py-4 text-sm">
                         <div className="md:flex space-x-2.5">
                           <button
-                            onClick={() => handleEditKerusakan(kerusakan)}
-                            className="bg-blue-600 text-white hover:bg-blue-700 flex items-center px-4 py-2 rounded-md"
-                          >
-                            <MdEdit className="text-xs mr-2" />
-                            Edit
-                          </button>
-                          <button
                             onClick={() => deleteKerusakan(kerusakan.platNomor)}
                             className="bg-red-600 text-white hover:bg-red-700 flex items-center mt-2 md:mt-0 px-4 py-2 rounded-md"
                           >
                             <MdDelete className="text-xl mr-2" />
-                            Hapus
+                            Selesai
                           </button>
                         </div>
                       </td>
@@ -322,4 +230,4 @@ const Driver = () => {
   );
 };
 
-export default Driver;
+export default Teknisi;

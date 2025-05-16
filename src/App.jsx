@@ -5,14 +5,14 @@ import "./App.css";
 import Admin from "./Admin";
 import Driver from "./Driver";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import RoutesComponent from "./Routes";
 function App() {
   return (
     <>
       <Router>
-        <Routes>
-          <Route path="/admin" element={<Admin />} />
-          <Route path="/driver" element={<Driver />} />
-        </Routes>
+        <div>
+          <RoutesComponent />
+        </div>
       </Router>
     </>
   );
