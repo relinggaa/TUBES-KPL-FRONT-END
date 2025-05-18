@@ -1,20 +1,27 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import "./App.css";
-import Admin from "./Admin";
-import Driver from "./Driver";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import RoutesComponent from "./Routes";
+import './App.css';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import Admin from './Admin';
+import Driver from './Driver';
+
+// Buat ini isi rute-rute lain jika tidak pakai RoutesComponent
 function App() {
   return (
-    <>
-      <Router>
-        <div>
-          <RoutesComponent />
-        </div>
-      </Router>
-    </>
+    <Router>
+      <Routes>
+        {/* Halaman login dan register */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+
+        {/* Rute lainnya */}
+        <Route path="/admin" element={<Admin />} />
+        <Route path="/driver" element={<Driver />} />
+        
+        {/* Tambahkan rute default jika perlu */}
+        {/* <Route path="/" element={<Home />} /> */}
+      </Routes>
+    </Router>
   );
 }
 
