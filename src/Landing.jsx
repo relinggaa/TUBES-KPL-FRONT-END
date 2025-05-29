@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from "react";
 import { renderToString } from "react-dom/server";
 import navlogo from "./assets/img/logo-sagara.png";
 
-// IconCloud component (JSX version)
 function easeOutCubic(t) {
   return 1 - Math.pow(1 - t, 3);
 }
@@ -64,7 +63,6 @@ function IconCloud({ icons, images }) {
     iconCanvasesRef.current = newIconCanvases;
   }, [icons, images]);
 
-  // Generate initial icon positions on a sphere
   useEffect(() => {
     const items = icons || images || [];
     const newIcons = [];
@@ -93,7 +91,6 @@ function IconCloud({ icons, images }) {
     setIconPositions(newIcons);
   }, [icons, images]);
 
-  // Mouse events
   const handleMouseDown = (e) => {
     const rect = canvasRef.current?.getBoundingClientRect();
     if (!rect || !canvasRef.current) return;
@@ -290,10 +287,11 @@ const iconImages = Array(30).fill(navlogo);
 
 const Landing = () => {
   return (
-    <>
+    <><div
+      
+    >
       <header className="shadow mb-2 bg-white">
         <div className="relative flex max-w-screen-xl flex-col overflow-hidden px-4 py-4 md:mx-auto md:flex-row md:items-center">
-          {/* ...logo dan nav... */}
           <a
             href="#"
             className="flex items-center whitespace-nowrap text-2xl font-black"
@@ -346,16 +344,12 @@ const Landing = () => {
           </nav>
         </div>
       </header>
-      <main className="py-8">
-        <div className="max-w-screen-xl px-4 md:mx-auto">
-          <h1 className="text-3xl font-bold">Welcome To Sagara Daily Checkup</h1>
-          <p className="mt-4 text-blue-600">
-            Always Check Your Vehicle.
-          </p>
-        </div>
-      </main>
+    <div className="background"></div>
 
+    
+      {/* main content */}
       
+     
       {/* CARD & IconCloud Side by Side */}
       <div className="max-w-screen-xl px-3 md:mx-auto mt-1 flex flex-col md:flex-row gap-8 items-start">
         {/* Card List */}
@@ -385,12 +379,26 @@ const Landing = () => {
             </div>
           </div>
         </div>
+        
+      
+
+
         {/* IconCloud di sebelah kanan */}
         <div className="flex-1 flex justify-end items-end pr-8">
           <IconCloud images={iconImages} />
         </div>
       </div>
-    </>
+      <footer className="footerlanding">
+        <div className="max-w-screen-xl px-4 md:mx-auto text-center">
+          <p className="text-white text-sm">© 2023 Sagara Daily Checkup. All rights reserved.</p>
+        </div>
+      </footer>
+    </div>
+      
+  </>
+
+
+    
   );
 };
 
