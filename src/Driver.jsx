@@ -45,12 +45,13 @@ const Driver = () => {
       merek: kerusakan.merek,
       platNomor: kerusakan.platNomor,
       kendala: kerusakan.kendala,
-      catatan: kerusakan.Catatan,
+      Catatan: kerusakan.Catatan,
     });
   };
 
   const updateKerusakan = async (e) => {
     e.preventDefault();
+    console.log("Mengirim data untuk update:", kerusakanForm);
     try {
       await axios.put(
         `https://localhost:7119/api/Driver/updateKerusakan/${selectedKerusakan.platNomor}`,
@@ -113,18 +114,16 @@ const Driver = () => {
       setLoading(false);
     }
   };
-
   const handleLogout = () => {
     // Hapus data auth dari localStorage/session (jika ada)
     localStorage.removeItem("token"); // atau sessionStorage.removeItem("token")
-  
+
     // Tampilkan notifikasi
     toast.success("Berhasil logout");
-  
-    // Arahkan ke halaman login / landing page
-    window.location.href = "/login"; // ganti sesuai routing Anda
-  };
 
+    // Arahkan ke halaman login / landing page
+    window.location.href = "/login";
+  };
   return (
     <>
       <header className="shadow mb-2 bg-white">
@@ -133,7 +132,7 @@ const Driver = () => {
             href="#"
             className="flex items-center whitespace-nowrap text-2xl font-black"
           >
-            <img className="w-32" src={navlogo} alt="Logo" />
+            <img className="w-44" src={navlogo} alt="Logo" />
           </a>
           <input type="checkbox" className="peer hidden" id="navbar-open" />
           <label
@@ -170,8 +169,10 @@ const Driver = () => {
                 </button>
               </li>
               <li className="text-gray-600 md:mr-12 hover:text-blue-600">
-                 <button onClick={handleLogout} 
-                className="rounded-md border-2 border-blue-600 px-6 py-1 font-medium text-blue-600 transition-colors hover:bg-blue-600 hover:text-white">
+                <button
+                  onClick={handleLogout}
+                  className="rounded-md border-2 border-blue-600 px-6 py-1 font-medium text-blue-600 transition-colors hover:bg-blue-600 hover:text-white"
+                >
                   Logout
                 </button>
               </li>
@@ -256,11 +257,11 @@ const Driver = () => {
                 <div>
                   <textarea
                     placeholder="Catatan"
-                    value={kerusakanForm.catatan}
+                    value={kerusakanForm.Catatan}
                     onChange={(e) =>
                       setKerusakanForm({
                         ...kerusakanForm,
-                        catatan: e.target.value,
+                        Catatan: e.target.value,
                       })
                     }
                     className="input border border-gray-300 p-3 rounded-md w-full"
