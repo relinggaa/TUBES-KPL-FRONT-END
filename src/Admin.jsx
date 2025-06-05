@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import AuthPage from "./pages/AuthPage";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import { MdEdit, MdDelete } from "react-icons/md";
