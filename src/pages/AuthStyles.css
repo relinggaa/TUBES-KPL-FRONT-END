@@ -1,0 +1,74 @@
+.forms-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+}
+
+.section-title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.role-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.role-btn {
+  padding: 0.5rem 1.5rem;
+  background-color: #e0e0e0;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.role-btn:hover {
+  background-color: #d0d0d0;
+}
+
+.active-tab {
+  background-color: #007bff;
+  color: white;
+  font-weight: bold;
+}
+
+.forms {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+}
+
+.form-wrapper {
+  display: none;
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+  opacity: 0;
+  transform: scale(0.95);
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+.form-wrapper.is-active {
+  display: block;
+  opacity: 1;
+  transform: scale(1);
+  position: relative;
+}
+
+.custom-select {
+  appearance: none; /* Hilangkan default arrow */
+  background-image: url("data:image/svg+xml;utf8,<svg fill='blue' height='20' viewBox='0 0 24 24' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 1.25rem;
+  padding-right: 2.5rem; /* Space for arrow */
+}
+.cardm{
+  margin-left: 30%;
+}
