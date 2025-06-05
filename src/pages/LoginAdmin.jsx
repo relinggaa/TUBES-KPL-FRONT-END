@@ -1,23 +1,32 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import navlogo from "../assets/img/logo-sagara.png";
+import axios from "axios";
 
 const LoginAdmin = ({ onLogin }) => {
-  const [input, setInput] = useState({ username: "", password: "" });
+  const [input, setInput] = useState({ username: "", key: "" });
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
 
-    // Cek kredensial admin
-    if (input.username === "admin" && input.password === "admin123") {
-      // Panggil onLogin dari App untuk update state & localStorage
-      onLogin("admin");
+    try {
+      const response = await axios.post(
+        "https://localhost:7119/api/Login/loginAdmin",
+        {
+          Username: input.username,
+          Key: input.key,
+        }
+      );
 
-      // Redirect ke halaman admin
-      navigate("/admin");
-    } else {
-      alert("Login gagal");
+      if (response.data.success) {
+        onLogin(response.data.role);
+        navigate("/admin");
+      } else {
+        alert(response.data.message || "Login gagal");
+      }
+    } catch (error) {
+      alert(error.response?.data?.message || "Kesalahan jaringan");
     }
   };
 
@@ -37,8 +46,8 @@ const LoginAdmin = ({ onLogin }) => {
         <input
           type="password"
           placeholder="Input Key"
-          value={input.password}
-          onChange={(e) => setInput({ ...input, password: e.target.value })}
+          value={input.key}
+          onChange={(e) => setInput({ ...input, key: e.target.value })}
           required
           className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
