@@ -1,4 +1,6 @@
 import navlogo from "./assets/img/logo-sagara.png";
+import { BoxRevealDemo } from "./BoxRevealDemo";
+
 const Landing = () => {
   return (
     <>
@@ -57,48 +59,58 @@ const Landing = () => {
           </nav>
         </div>
       </header>
+
+      <BoxRevealDemo />
       <main className="py-8">
         <div className="max-w-screen-xl px-4 md:mx-auto">
-          <h1 className="text-3xl font-bold">Welcome To Sagara Daily Checkup</h1>
-          <p className="mt-4 text-blue-600">
-            Always Check Your Vehicle.
-          </p>
+          <h1 className="text-3xl font-bold">
+            Welcome To Sagara Daily Checkup
+          </h1>
+          <p className="mt-4 text-blue-600">Always Check Your Vehicle.</p>
         </div>
       </main>
 
-{/* CARD */}
+      {/* CARD */}
 
-<div className="max-w-screen-xl px-3 md:mx-auto mt-1 flex flex-col gap-5 items-start">
-  {/* Card 1 */}
-  <div className="relative group w-72 h-40 bg-white rounded-xl shadow-lg transition-transform duration-300 hover:-translate-y-2 hover:shadow-2xl cursor-pointer">
-    <div className="absolute inset-0 bg-blue-100 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl z-0"></div>
-    <div className="relative z-10 flex flex-col items-start justify-center h-full px-5">
-      <h2 className="text-xl font-semibold text-blue-700 mb-2 text-left">Cek Kendaraan</h2>
-      <p className="text-base text-gray-600 text-left">Lakukan pengecekan harian kendaraan dengan mudah dan cepat.</p>
-    </div>
-  </div>
-  {/* Card 2 */}
-  <div className="relative group w-72 h-40 bg-white rounded-xl shadow-lg transition-transform duration-300 hover:-translate-y-2 hover:shadow-2xl cursor-pointer">
-    <div className="absolute inset-0 bg-blue-100 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl z-0"></div>
-    <div className="relative z-10 flex flex-col items-start justify-center h-full px-5">
-      <h2 className="text-xl font-semibold text-blue-700 mb-2 text-left">Laporan & Riwayat</h2>
-      <p className="text-base text-gray-600 text-left">Lihat laporan dan riwayat pengecekan kendaraan secara real-time.</p>
-    </div>
-  </div>
-  {/* Card 3 */}
-  <div className="relative group w-72 h-40 bg-white rounded-xl shadow-lg transition-transform duration-300 hover:-translate-y-2 hover:shadow-2xl cursor-pointer">
-    <div className="absolute inset-0 bg-blue-100 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl z-0"></div>
-    <div className="relative z-10 flex flex-col items-start justify-center h-full px-5">
-      <h2 className="text-xl font-semibold text-blue-700 mb-2 text-left">Notifikasi</h2>
-      <p className="text-base text-gray-600 text-left">Admin Mendapatkan notifikasi jika ada masalah pada kendaraan.</p>
-    </div>
-  </div>
-</div>
-
+      <div className="max-w-screen-xl px-3 md:mx-auto mt-1 flex flex-col gap-5 items-start">
+        {/* Card 1 */}
+        <div className="relative group w-72 h-40 bg-white rounded-xl shadow-lg transition-transform duration-300 hover:-translate-y-2 hover:shadow-2xl cursor-pointer">
+          <div className="absolute inset-0 bg-blue-100 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl z-0"></div>
+          <div className="relative z-10 flex flex-col items-start justify-center h-full px-5">
+            <h2 className="text-xl font-semibold text-blue-700 mb-2 text-left">
+              Cek Kendaraan
+            </h2>
+            <p className="text-base text-gray-600 text-left">
+              Lakukan pengecekan harian kendaraan dengan mudah dan cepat.
+            </p>
+          </div>
+        </div>
+        {/* Card 2 */}
+        <div className="relative group w-72 h-40 bg-white rounded-xl shadow-lg transition-transform duration-300 hover:-translate-y-2 hover:shadow-2xl cursor-pointer">
+          <div className="absolute inset-0 bg-blue-100 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl z-0"></div>
+          <div className="relative z-10 flex flex-col items-start justify-center h-full px-5">
+            <h2 className="text-xl font-semibold text-blue-700 mb-2 text-left">
+              Laporan & Riwayat
+            </h2>
+            <p className="text-base text-gray-600 text-left">
+              Lihat laporan dan riwayat pengecekan kendaraan secara real-time.
+            </p>
+          </div>
+        </div>
+        {/* Card 3 */}
+        <div className="relative group w-72 h-40 bg-white rounded-xl shadow-lg transition-transform duration-300 hover:-translate-y-2 hover:shadow-2xl cursor-pointer">
+          <div className="absolute inset-0 bg-blue-100 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl z-0"></div>
+          <div className="relative z-10 flex flex-col items-start justify-center h-full px-5">
+            <h2 className="text-xl font-semibold text-blue-700 mb-2 text-left">
+              Notifikasi
+            </h2>
+            <p className="text-base text-gray-600 text-left">
+              Admin Mendapatkan notifikasi jika ada masalah pada kendaraan.
+            </p>
+          </div>
+        </div>
+      </div>
     </>
   );
 };
 export default Landing;
-
-
-
