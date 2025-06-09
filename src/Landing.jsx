@@ -348,11 +348,17 @@ const Landing = () => {
 
     
       {/* main content */}
-      
-     
-      {/* CARD & IconCloud Side by Side */}
-      <div className="max-w-screen-xl px-3 md:mx-auto mt-1 flex flex-col md:flex-row gap-8 items-start">
-        {/* Card List */}
+        <div className="max-w-screen-xl px-4 md:mx-auto text-left mb-8">
+          <h1 className="text-4xl font-bold mb-4 text-blue-700 bg-clip-text">
+            Selamat datang di Sagara Daily Checkup
+          </h1>
+          <p className="text-lg text-gray-600">
+            Platform pengecekan harian kendaraan yang mudah dan cepat.
+          </p>
+        </div>
+
+        <div className="max-w-screen-xl px-3 md:mx-auto mt-1 flex flex-col md:flex-row gap-8 items-start">
+          {/* Card List */}
         <div className="flex flex-col gap-5">
           {/* Card 1 */}
           <div className="relative group w-72 h-40 bg-white rounded-xl shadow-lg transition-transform duration-300 hover:-translate-y-2 hover:shadow-2xl cursor-pointer">
