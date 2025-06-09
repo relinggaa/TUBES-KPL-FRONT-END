@@ -1,11 +1,19 @@
+import React from "react";
 import navlogo from "./assets/img/logo-sagara.png";
 import { BoxRevealDemo } from "./BoxRevealDemo";
+import { FlickeringGridDemo } from "./FlickeringGridDemo";
 
 const Landing = () => {
   return (
-    <>
-      <header className="shadow mb-2 bg-white">
-        <div className="relative flex max-w-screen-xl flex-col overflow-hidden px-4 py-4 md:mx-auto md:flex-row md:items-center">
+    <div className="relative min-h-screen overflow-hidden">
+      {/* Background Grid */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 -z-10 w-[2000px] h-[2000px]">
+        <FlickeringGridDemo />
+      </div>
+
+      {/* Header */}
+      <header className="shadow mb-2 bg-white/80 backdrop-blur fixed">
+        <div className="relative flex max-w-screen-xl flex-col overflow-hidden px-6 py-4 md:mx-auto md:flex-row md:items-center">
           <a
             href="#"
             className="flex items-center whitespace-nowrap text-2xl font-black"
@@ -60,19 +68,15 @@ const Landing = () => {
         </div>
       </header>
 
-      <BoxRevealDemo />
-      <main className="py-8">
-        <div className="max-w-screen-xl px-4 md:mx-auto">
-          <h1 className="text-3xl font-bold">
-            Welcome To Sagara Daily Checkup
-          </h1>
-          <p className="mt-4 text-blue-600">Always Check Your Vehicle.</p>
+      {/* Main Content */}
+      <main className="pt-0 pb-4 mt-13">
+        <div className="px-6 md:px-12 lg:px-24">
+          <BoxRevealDemo />
         </div>
       </main>
 
-      {/* CARD */}
-
-      <div className="max-w-screen-xl px-3 md:mx-auto mt-1 flex flex-col gap-5 items-start">
+      {/* Card Section */}
+      <div className="px-6 md:px-12 lg:px-24 mt-1 flex flex-col gap-5 items-start mb-10">
         {/* Card 1 */}
         <div className="relative group w-72 h-40 bg-white rounded-xl shadow-lg transition-transform duration-300 hover:-translate-y-2 hover:shadow-2xl cursor-pointer">
           <div className="absolute inset-0 bg-blue-100 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl z-0"></div>
@@ -85,6 +89,7 @@ const Landing = () => {
             </p>
           </div>
         </div>
+
         {/* Card 2 */}
         <div className="relative group w-72 h-40 bg-white rounded-xl shadow-lg transition-transform duration-300 hover:-translate-y-2 hover:shadow-2xl cursor-pointer">
           <div className="absolute inset-0 bg-blue-100 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl z-0"></div>
@@ -97,6 +102,7 @@ const Landing = () => {
             </p>
           </div>
         </div>
+
         {/* Card 3 */}
         <div className="relative group w-72 h-40 bg-white rounded-xl shadow-lg transition-transform duration-300 hover:-translate-y-2 hover:shadow-2xl cursor-pointer">
           <div className="absolute inset-0 bg-blue-100 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl z-0"></div>
@@ -110,7 +116,8 @@ const Landing = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
+
 export default Landing;
