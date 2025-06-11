@@ -19,6 +19,13 @@ const Admin = () => {
     role: "admin",
     keyValue: "",
   });
+
+  const isValidPlatNomorFormat = (platNomor) => {
+    // Format: satu/tiga huruf - spasi - 1-4 angka - spasi - satu/tiga huruf (ade)
+    const regex = /^[A-Z]{1,3} \d{1,4}( [A-Z]{1,3})?$/;
+    return regex.test(platNomor.trim().toUpperCase());
+  };
+
   const [selectedKey, setSelectedKey] = useState(null);
   const [KendaraanForm, setKendaraanForm] = useState({
     merek: "",
@@ -109,21 +116,47 @@ const Admin = () => {
     }
   };
 
+  // Fungsi untuk cek apakah plat nomor sudah ada / duplikat (Ade)
+  const checkPlatNomorExists = async (platNomor) => {
+    try {
+      const response = await axios.get(
+        "https://localhost:7119/api/Admin/getKendaraan"
+      );
+      const existing = response.data.find(
+        (kendaraan) =>
+          kendaraan.platNomor.toUpperCase() === platNomor.toUpperCase()
+      );
+      return !!existing; // true jika ditemukan, false kalau tidak
+    } catch (error) {
+      console.error("Gagal memeriksa plat nomor:", error);
+      return false;
+    }
+  };
+
   const AddKendaraan = async (e) => {
     e.preventDefault();
-    try {
-      console.log("Submitting data:", KendaraanForm);
 
+    const { platNomor, merek } = KendaraanForm;
+
+    if (!isValidPlatNomorFormat(platNomor)) {
+      toast.error("Format plat nomor salah. Contoh yang benar: B 1234 ABC");
+      return;
+    }
+
+    const isDuplicate = await checkPlatNomorExists(platNomor);
+    if (isDuplicate) {
+      toast.error(`Plat nomor "${platNomor}" sudah terdaftar.`);
+      return;
+    }
+
+    try {
       const response = await axios.post(
         "https://localhost:7119/api/Admin/addKendaraan",
         KendaraanForm
       );
 
-      console.log("Response:", response);
       toast.success("Kendaraan berhasil ditambahkan");
-
       setKendaraanForm({ merek: "", platNomor: "" });
-
       getKendaraan();
     } catch (error) {
       toast.error("Gagal menambahkan kendaraan");
@@ -143,15 +176,31 @@ const Admin = () => {
     }
     setKeyForm({ ...keyForm, keyValue: result });
   };
+
   const UpdateKendaraan = async (e) => {
     e.preventDefault();
+
+    const { platNomor, merek, oldPlatNomor } = updateKendaraanForm;
+
+    if (!isValidPlatNomorFormat(platNomor)) {
+      toast.error("Format plat nomor salah. Contoh yang benar: B 1234 ABC");
+      return;
+    }
+
+    if (platNomor.toUpperCase() !== oldPlatNomor.toUpperCase()) {
+      const isDuplicate = await checkPlatNomorExists(platNomor);
+      if (isDuplicate) {
+        toast.error(
+          `Plat nomor "${platNomor}" sudah digunakan oleh kendaraan lain.`
+        );
+        return;
+      }
+    }
+
     try {
-      const response = await axios.put(
-        `https://localhost:7119/api/Admin/updateKendaraan/${updateKendaraanForm.oldPlatNomor}`,
-        {
-          merek: updateKendaraanForm.merek,
-          platNomor: updateKendaraanForm.platNomor,
-        }
+      await axios.put(
+        `https://localhost:7119/api/Admin/updateKendaraan/${oldPlatNomor}`,
+        { merek, platNomor }
       );
       toast.success("Kendaraan berhasil diupdate");
       setUpdateKendaraanForm({ oldPlatNomor: "", merek: "", platNomor: "" });
@@ -183,15 +232,15 @@ const Admin = () => {
   };
 
   const handleLogout = () => {
-  // Hapus data auth dari localStorage/session (jika ada)
-  localStorage.removeItem("token"); // atau sessionStorage.removeItem("token")
+    // Hapus data auth dari localStorage/session (jika ada)
+    localStorage.removeItem("token"); // atau sessionStorage.removeItem("token")
 
-  // Tampilkan notifikasi
-  toast.success("Berhasil logout");
+    // Tampilkan notifikasi
+    toast.success("Berhasil logout");
 
-  // Arahkan ke halaman login / landing page
-  window.location.href = "/login"; // ganti sesuai routing Anda
-};
+    // Arahkan ke halaman login / landing page
+    window.location.href = "/login"; // ganti sesuai routing
+  };
 
   return (
     <>
@@ -243,8 +292,10 @@ const Admin = () => {
                 </button>
               </li>
               <li className="text-gray-600 md:mr-12 hover:text-blue-600">
-                <button onClick={handleLogout} 
-                className="rounded-md border-2 border-blue-600 px-6 py-1 font-medium text-blue-600 transition-colors hover:bg-blue-600 hover:text-white">
+                <button
+                  onClick={handleLogout}
+                  className="rounded-md border-2 border-blue-600 px-6 py-1 font-medium text-blue-600 transition-colors hover:bg-blue-600 hover:text-white"
+                >
                   Logout
                 </button>
               </li>
