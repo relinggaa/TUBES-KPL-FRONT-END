@@ -134,32 +134,34 @@ const Admin = () => {
  const AddKendaraan = async (e) => {
   e.preventDefault();
 
- const { platNomor, merek } = KendaraanForm;
-    if (!isValidPlatNomorFormat(platNomor)) {
-      alert("Format plat nomor salah. Contoh: B 1234 ABC");
-      return;
-    }
+  const { platNomor, merek } = KendaraanForm;
 
-    const isDuplicate = await checkPlatNomorExists(platNomor);
-    if (isDuplicate) {
-      toast.error(`Plat nomor ${platNomor} sudah terdaftar.`);
-      return;
-    }
+  if (!isValidPlatNomorFormat(platNomor)) {
+    toast.error("Format plat nomor salah. Contoh yang benar: B 1234 ABC");
+    return;
+  }
 
-    try {
-      const response = await axios.post(
-        "https://localhost:7119/api/Admin/addKendaraan",
-        KendaraanForm
-      );
+  const isDuplicate = await checkPlatNomorExists(platNomor);
+  if (isDuplicate) {
+    toast.error(`Plat nomor "${platNomor}" sudah terdaftar.`);
+    return;
+  }
 
-      toast.success("Kendaraan berhasil ditambahkan");
-      setKendaraanForm({ merek: "", platNomor: "" });
-      getKendaraan();
-    } catch (error) {
-      toast.error("Gagal menambahkan kendaraan");
-      console.error("Error adding kendaraan:", error);
-    }
-  };
+  try {
+    const response = await axios.post(
+      "https://localhost:7119/api/Admin/addKendaraan",
+      KendaraanForm
+    );
+
+    toast.success("Kendaraan berhasil ditambahkan");
+    setKendaraanForm({ merek: "", platNomor: "" });
+    getKendaraan();
+  } catch (error) {
+    toast.error("Gagal menambahkan kendaraan");
+    console.error("Error adding kendaraan:", error);
+  }
+};
+
 
 
 
@@ -182,15 +184,14 @@ const Admin = () => {
       const { platNomor, merek, oldPlatNomor } = updateKendaraanForm;
 
       if (!isValidPlatNomorFormat(platNomor)) {
-        alert("Format plat nomor salah. Contoh: B 1234 ABC");
+        toast.error("Format plat nomor salah. Contoh yang benar: B 1234 ABC");
         return;
       }
 
-      // Cek hanya jika platNomor-nya duplikat (Ade)
       if (platNomor.toUpperCase() !== oldPlatNomor.toUpperCase()) {
         const isDuplicate = await checkPlatNomorExists(platNomor);
         if (isDuplicate) {
-          toast.error(`Plat nomor ${platNomor} sudah digunakan kendaraan lain.`);
+          toast.error(`Plat nomor "${platNomor}" sudah digunakan oleh kendaraan lain.`);
           return;
         }
       }
@@ -207,8 +208,6 @@ const Admin = () => {
         toast.error("Gagal mengupdate kendaraan");
       }
     };
-
-
 
   const handleEditVehicle = (kendaraan) => {
     setUpdateKendaraanForm({
