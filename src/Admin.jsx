@@ -19,6 +19,14 @@ const Admin = () => {
     role: "admin",
     keyValue: "",
   });
+
+  const isValidPlatNomorFormat = (platNomor) => {
+  // Format: satu/tiga huruf - spasi - 1-4 angka - spasi - satu/tiga huruf (ade)
+  const regex = /^[A-Z]{1,3} \d{1,4}( [A-Z]{1,3})?$/;
+  return regex.test(platNomor.trim().toUpperCase());
+  };
+
+
   const [selectedKey, setSelectedKey] = useState(null);
   const [KendaraanForm, setKendaraanForm] = useState({
     merek: "",
@@ -109,27 +117,51 @@ const Admin = () => {
     }
   };
 
-  const AddKendaraan = async (e) => {
-    e.preventDefault();
+  // Fungsi untuk cek apakah plat nomor sudah ada / duplikat (Ade)
+  const checkPlatNomorExists = async (platNomor) => {
     try {
-      console.log("Submitting data:", KendaraanForm);
+      const response = await axios.get("https://localhost:7119/api/Admin/getKendaraan");
+      const existing = response.data.find(
+        (kendaraan) => kendaraan.platNomor.toUpperCase() === platNomor.toUpperCase()
+      );
+      return !!existing; // true jika ditemukan, false kalau tidak
+    } catch (error) {
+      console.error("Gagal memeriksa plat nomor:", error);
+      return false;
+    }
+  };
 
+ const AddKendaraan = async (e) => {
+  e.preventDefault();
+
+ const { platNomor, merek } = KendaraanForm;
+    if (!isValidPlatNomorFormat(platNomor)) {
+      alert("Format plat nomor salah. Contoh: B 1234 ABC");
+      return;
+    }
+
+    const isDuplicate = await checkPlatNomorExists(platNomor);
+    if (isDuplicate) {
+      toast.error(`Plat nomor ${platNomor} sudah terdaftar.`);
+      return;
+    }
+
+    try {
       const response = await axios.post(
         "https://localhost:7119/api/Admin/addKendaraan",
         KendaraanForm
       );
 
-      console.log("Response:", response);
       toast.success("Kendaraan berhasil ditambahkan");
-
       setKendaraanForm({ merek: "", platNomor: "" });
-
       getKendaraan();
     } catch (error) {
       toast.error("Gagal menambahkan kendaraan");
       console.error("Error adding kendaraan:", error);
     }
   };
+
+
 
   const generateKey = () => {
     const characters =
@@ -143,23 +175,40 @@ const Admin = () => {
     }
     setKeyForm({ ...keyForm, keyValue: result });
   };
-  const UpdateKendaraan = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await axios.put(
-        `https://localhost:7119/api/Admin/updateKendaraan/${updateKendaraanForm.oldPlatNomor}`,
-        {
-          merek: updateKendaraanForm.merek,
-          platNomor: updateKendaraanForm.platNomor,
+
+ const UpdateKendaraan = async (e) => {
+      e.preventDefault();
+
+      const { platNomor, merek, oldPlatNomor } = updateKendaraanForm;
+
+      if (!isValidPlatNomorFormat(platNomor)) {
+        alert("Format plat nomor salah. Contoh: B 1234 ABC");
+        return;
+      }
+
+      // Cek hanya jika platNomor-nya duplikat (Ade)
+      if (platNomor.toUpperCase() !== oldPlatNomor.toUpperCase()) {
+        const isDuplicate = await checkPlatNomorExists(platNomor);
+        if (isDuplicate) {
+          toast.error(`Plat nomor ${platNomor} sudah digunakan kendaraan lain.`);
+          return;
         }
-      );
-      toast.success("Kendaraan berhasil diupdate");
-      setUpdateKendaraanForm({ oldPlatNomor: "", merek: "", platNomor: "" });
-      getKendaraan();
-    } catch (error) {
-      toast.error("Gagal mengupdate kendaraan");
-    }
-  };
+      }
+
+      try {
+        await axios.put(
+          `https://localhost:7119/api/Admin/updateKendaraan/${oldPlatNomor}`,
+          { merek, platNomor }
+        );
+        toast.success("Kendaraan berhasil diupdate");
+        setUpdateKendaraanForm({ oldPlatNomor: "", merek: "", platNomor: "" });
+        getKendaraan();
+      } catch (error) {
+        toast.error("Gagal mengupdate kendaraan");
+      }
+    };
+
+
 
   const handleEditVehicle = (kendaraan) => {
     setUpdateKendaraanForm({
@@ -190,7 +239,7 @@ const Admin = () => {
   toast.success("Berhasil logout");
 
   // Arahkan ke halaman login / landing page
-  window.location.href = "/login"; // ganti sesuai routing Anda
+  window.location.href = "/login"; // ganti sesuai routing 
 };
 
   return (
