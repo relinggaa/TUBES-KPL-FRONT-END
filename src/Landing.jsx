@@ -69,7 +69,7 @@ const Landing = () => {
       </header>
 
       {/* Main Content */}
-      <main className="pt-0 pb-4 mt-13">
+      <main className="pt-0 pb-4 mt-16">
         <div className="px-6 md:px-12 lg:px-24">
           <BoxRevealDemo />
         </div>
