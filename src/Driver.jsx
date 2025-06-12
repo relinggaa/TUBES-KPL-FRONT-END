@@ -21,10 +21,6 @@ const Driver = () => {
     getKerusakan();
   }, []);
 
-  const handleTabChange = (tab) => {
-    setActiveTab(tab);
-  };
-
   const getKerusakan = async () => {
     try {
       setLoading(true);
@@ -164,7 +160,7 @@ const Driver = () => {
                 <a href="/">Home</a>
               </li>
               <li className="text-gray-600 md:mr-12 hover:text-blue-600">
-                <button onClick={() => handleTabChange("kerusakan")}>
+                <button onClick={() => setActiveTab("kerusakan")}>
                   Laporan Kerusakan
                 </button>
               </li>

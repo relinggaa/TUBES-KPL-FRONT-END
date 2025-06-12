@@ -7,13 +7,11 @@ import navlogo from "./assets/img/logo-sagara.png";
 import "react-toastify/dist/ReactToastify.css";
 
 const Admin = () => {
-  const [activeTab, setActiveTab] = useState("keys");
+  const [activeTab, setActiveTab] = useState("addKey");
   const [keys, setKeys] = useState([]);
   const [kendaraans, setKendaraans] = useState([]);
   const [loading, setLoading] = useState(false);
-  const handleTabChange = (tab) => {
-    setActiveTab(tab);
-  };
+
   const [keyForm, setKeyForm] = useState({
     username: "",
     role: "admin",
@@ -282,12 +280,10 @@ const Admin = () => {
                 <a href="/">Home</a>
               </li>
               <li className="text-gray-600 md:mr-12 hover:text-blue-600">
-                <button onClick={() => handleTabChange("addKey")}>
-                  Buat Key
-                </button>
+                <button onClick={() => setActiveTab("addKey")}>Buat Key</button>
               </li>
               <li className="text-gray-600 md:mr-12 hover:text-blue-600">
-                <button onClick={() => handleTabChange("addVehicle")}>
+                <button onClick={() => setActiveTab("addVehicle")}>
                   Tambah Data Kendaraan
                 </button>
               </li>

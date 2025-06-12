@@ -21,10 +21,6 @@ const Teknisi = () => {
     getKerusakan();
   }, []);
 
-  const handleTabChange = (tab) => {
-    setActiveTab(tab);
-  };
-
   const getKerusakan = async () => {
     try {
       setLoading(true);
@@ -115,15 +111,15 @@ const Teknisi = () => {
   };
 
   const handleLogout = () => {
-  // Hapus data auth dari localStorage/session (jika ada)
-  localStorage.removeItem("token"); // atau sessionStorage.removeItem("token")
+    // Hapus data auth dari localStorage/session (jika ada)
+    localStorage.removeItem("token"); // atau sessionStorage.removeItem("token")
 
-  // Tampilkan notifikasi
-  toast.success("Berhasil logout");
+    // Tampilkan notifikasi
+    toast.success("Berhasil logout");
 
-  // Arahkan ke halaman login / landing page
-  window.location.href = "/login"; // ganti sesuai routing Anda
-};
+    // Arahkan ke halaman login / landing page
+    window.location.href = "/login"; // ganti sesuai routing Anda
+  };
   return (
     <>
       <header className="shadow mb-2 bg-white">
@@ -164,13 +160,15 @@ const Teknisi = () => {
                 <a href="/">Home</a>
               </li>
               <li className="text-gray-600 md:mr-12 hover:text-blue-600">
-                <button onClick={() => handleTabChange("kerusakan")}>
+                <button onClick={() => setActiveTab("kerusakan")}>
                   Tampilkan Data Kerusakan
                 </button>
               </li>
               <li className="text-gray-600 md:mr-12 hover:text-blue-600">
-               <button onClick={handleLogout} 
-                className="rounded-md border-2 border-blue-600 px-6 py-1 font-medium text-blue-600 transition-colors hover:bg-blue-600 hover:text-white">
+                <button
+                  onClick={handleLogout}
+                  className="rounded-md border-2 border-blue-600 px-6 py-1 font-medium text-blue-600 transition-colors hover:bg-blue-600 hover:text-white"
+                >
                   Logout
                 </button>
               </li>
